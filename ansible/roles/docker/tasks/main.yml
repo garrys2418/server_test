@@ -1,0 +1,38 @@
+- hosts: all
+  become: true
+
+  gather_facts: false
+  pre_tasks:
+    - name: Install python2 for Ansible
+      raw: bash -c "test -e /usr/bin/python || (apt -qqy update && apt install -qqy python-minimal)"
+      register: output
+      changed_when: output.stdout != ""
+    - name: Gathering Facts
+      setup:
+
+  tasks:
+    - name: ensure repository key is installed
+      apt_key:
+        id: "58118E89F3A912897C070ADBF76221572C52609D"
+        keyserver: "hkp://p80.pool.sks-keyservers.net:80"
+        state: present
+
+    - name: ensure docker registry is available
+
+      apt_repository: repo='deb https://apt.dockerproject.org/repo ubuntu-xenial main' state=present
+
+    - name: ensure docker and dependencies are installed
+      apt: name=docker-engine update_cache=yes
+
+
+    - service: name=docker state=restarted
+- name: upload the docker directory to the docker host
+       synchronize: src=python dest=/tmp
+- name: build the image
+  command: docker build -t server:test1 path=/tmp/python
+- name: run the site in a docker container
+      docker:
+        name: server_test
+        image: "server:test1"
+        state: reloaded
+        publish_all_ports: yes
