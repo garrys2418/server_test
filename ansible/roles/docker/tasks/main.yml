@@ -31,8 +31,4 @@
 - name: build the image
   command: docker build -t server:test1 path=/tmp/python
 - name: run the site in a docker container
-      docker:
-        name: server_test
-        image: "server:test1"
-        state: reloaded
-        publish_all_ports: yes
+  command: docker run --name server_test -e "HOSTNAME=$(cat /etc/hostname)" -d -p 6666:6666 server:test1

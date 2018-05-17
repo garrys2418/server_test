@@ -33,7 +33,6 @@ ansible
 
 ### Install dependencies
 
-#### Mac OS X
 
 ##### Ansible
 
@@ -135,3 +134,5 @@ If everything is ok:
 ```
 % terraform apply
 ```
+Script of server was wroten on python and placed in /python folder(server.py)
+In same folder placed Dockerfile for docker container.
