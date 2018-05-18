@@ -1,7 +1,7 @@
 # server_test
 ## Introduction
 
-This repos contains a complete AWS EC2 instance creation with Docker installation, using terraform to provision EC2 instances on AWS, and Ansible playbooks to install docker.
+This repos contains a complete AWS EC2 instance creation with Docker installation, using terraform to provision EC2 instances on AWS, and Ansible playbooks to install docker, build and run container.
 
 ### Terraform configuration
 
@@ -12,41 +12,11 @@ This repos contains a complete AWS EC2 instance creation with Docker installatio
 * tag-cpaccount: another tag (if you don't need it, remove it from terraform .tf)
 * aws-ssh-key: Path to your private key (variable named key-pair) you attached to the instances.
 
-### Ansible configuration
 
-```
-ansible
-├── group_vars
-├── inventories
-│   └── test
-└── roles
-    ├── common
-    │   ├── tasks
-    │   └── templates
-    └── docker
-        ├── tasks
-        │   └── docker.yml
-        └── templates
-```
 
 ## Configuration
 
-### Install dependencies
 
-
-##### Ansible
-
-```
-% brew install ansible
-```
-
-##### Terraform
-
-Download the appropriate package from https://www.terraform.io/downloads.html and install the binary :
-
-```
-% sudo mv ~/Downloads/terraform /usr/local/bin
-```
 
 ### AWS role secrets
 
